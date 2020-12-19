@@ -5,44 +5,27 @@ import diaphragm from '../img/diaphragm.svg';
 import money from '../img/money.svg';
 import teamwork from '../img/teamwork.svg';
 import home2 from '../img/home2.png';
+//Import Styles
 import { About, Description, Image} from '../styles';
 import styled from 'styled-components';
-
+import {useInView} from 'react-intersection-observer';
+import {useAnimation} from 'framer-motion';
+import {useScroll} from './useScroll';
+import {fade, lineAnim} from '../animation';
 
 export default function ServicesSection() {
-    const Services = styled(About)`
-        h2{
-            padding-bottom: 5rem;
-        }
-        p{
-            width: 70%auto;
-            padding: 2rem 0rem 4rem 0rem;
-        }
-    `
 
-    const Cards = styled.div`
-        display: flex;
-        flex-wrap: wrap;
-    `
-
-    const Card = styled.div`
-        flex-basis: 20rem; 
-        .icon {
-            display: flex;
-            align-items: center;
-            h3{
-                margin-left: 1rem;
-                background: white;
-                color: black;
-                padding: 1rem;
-            }
-        }
-        
-    `
-
+    const controls = useAnimation();
+    const [element,view] = useInView({threshold:0.5});
+    console.log(view);
+    if(view){
+        controls.start("show");
+    } else {
+        controls.start("hidden");
+    }
     return (
         <div>
-            <Services>
+            <Services variants={fade} ref={element} animate={controls} initial="hidden">
                 <Description>
                     <h2>High <span>quality</span> services.</h2>
                     <Cards>
@@ -85,3 +68,33 @@ export default function ServicesSection() {
         </div>
     )
 }
+
+const Services = styled(About)`
+h2{
+    padding-bottom: 5rem;
+}
+p{
+    width: 70%auto;
+    padding: 2rem 0rem 4rem 0rem;
+}
+`
+
+const Cards = styled.div`
+display: flex;
+flex-wrap: wrap;
+`
+
+const Card = styled.div`
+flex-basis: 20rem; 
+.icon {
+    display: flex;
+    align-items: center;
+    h3{
+        margin-left: 1rem;
+        background: white;
+        color: black;
+        padding: 1rem;
+    }
+}
+
+`

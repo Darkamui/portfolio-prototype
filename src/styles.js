@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import {motion} from 'framer-motion';
 
-export const About = styled.div`
+export const About = styled(motion.div)`
 min-height: 90vh;
 display: flex;
 align-items: center;
@@ -15,7 +16,7 @@ padding-right: 5rem;
 h2 {
     font-weight: lighter;
 };
-
+z-index: 2;
 `
 
 export const Image = styled.div ` 
@@ -24,8 +25,10 @@ overflow: hidden;
 img{
     width: 100%;
     max-height: 80vh;
-    object-fit: cover;
+    object-fit: contain;
+    
 };
+z-index: 2;
 `
 
 export const Hide = styled.div`
